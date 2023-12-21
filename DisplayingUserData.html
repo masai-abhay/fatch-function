@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="contanier">
+        <button id="fetchbtn">Fetch user</button>
+        <div id="userlist" class="userclass"></div>
+
+        
+    </div>
+    
+</body>
+<!--<script src="./display.js"></script>-->
+<script>
+
+
+    document.getElementById('fetchbtn').addEventListener('click',Fetchuser );
+
+    function Fetchuser(){
+
+        fetch('https://reqres.in/api/users') 
+        .then(response =>response.json())
+        .then(abhay =>{
+         let output = '';
+         console.log(abhay.data);
+         abhay.data.forEach(user => {
+           output += `
+
+           <div class="usercrd">
+            <img src="${user.avatar}" alt = "user Avatar">
+            <div class="user-details">
+                <span class="name">${user.first_name}</span>
+                <span class="email">${user.email}</span>
+                </div>
+            
+            </div>
+
+          `;
+
+
+         });
+
+         document.getElementById("userlist").innerHTML = output;
+        })
+        .catch(error =>{
+            console.error("there is error", error);
+        })
+             
+        
+
+    }
+
+</script>
+</html>
