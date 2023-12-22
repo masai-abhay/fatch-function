@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="movieName">
+    <br>
+    <button id="searchbtn">Go</button>
+    
+</body>
+
+
+<script>
+    const key = "7ea2c3b2";
+    let movieName = document.getElementById("movieName");
+
+    const searchbtn = document.getElementById('searchbtn');
+
+
+    searchbtn.addEventListener("click", function(){
+        const name = movieName.value; //movie search
+
+        fetch(`https://omdbapi.com/?apikey=${key}&t=${name}`)
+        .then(res => res.json())
+        .then(data => {
+
+            console.log(data);
+            showdata(data)
+        })
+            
+        .catch(error => {
+            console.log(error);
+        })
+
+
+    });
+
+    let container = document.querySelector("body");
+
+    function showdata(data){
+
+       
+
+    let title = document.createElement("h1");
+    title.innerText = data.Title;
+
+    let year = document.createElement("h2");
+    year.innerText = data.Year;
+
+    let img = document.createElement("img");
+    img.src = data.Poster;
+
+    container.append(title, year, img);
+    //sm.value = ""
+
+}
+
+</script>
+
+</html>
